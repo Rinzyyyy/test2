@@ -1,27 +1,15 @@
-import { useCallback, useState } from "react";
+import { AppContext } from "../../hooks/context/context";
+import { useContext } from "react";
+import styled from "styled-components";
 
-export default function App() {
-  
-  const [isActive, setIsActive] = useState(false);
-  const [isTestActive, setIsTestActive] = useState(false);
+const Number = () => {
+  const context = useContext(AppContext);
 
-  /* 
-    dependency array 給 [] -> 該 callback 永遠不會改變，
-    因為每次 re-render 時 [] 不會有任何的變更
-  */
-  const clickHandler = useCallback(() => {
-    if (isTestActive) {
-      setIsActive((prevState) => !prevState);
-    }
-    // 當心！這裡會出現問題！
-  }, []);
+  return <Text>{context.value}</Text>;
+};
 
-  const clickTestHandler = () => {
-    setIsTestActive((prevState) => !prevState);
-  };
+const Text = styled.div`
+  color: red;
+`;
 
-  return (
-    <div className="App">
-    </div>
-  );
-}
+export default Number;

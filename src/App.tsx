@@ -1,48 +1,30 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { useValue } from "./hooks/context/hook";
-import { AppContext } from "./hooks/context/context";
-import Note from "./components/Note";
-
-const Acom = () => {
-  return <>Acom</>;
-};
+import React from "react";
+import Number from "./components/Note";
+import styled from "styled-components";
+import ModeToggle from "./components/ModeToggle";
+import CountButton from "./components/CountButton";
 
 function App() {
-  const { value, setValue } = useValue();
-
-  const [value2, setValue2] = useState(0);
-
-  const [aprice, setAprice] = useState(0);
-
-  const calcAmount = () => {
-    console.log("==aprice1:", aprice);
-    return aprice;
-  };
-
-  const fetch = useCallback(calcAmount, [aprice]);
-
-  const fetch2 = () => {
-    console.log("==aprice2:", aprice);
-    return aprice;
-  };
-
-  useEffect(() => {
-    fetch();
-    fetch2();
-  }, [aprice]);
-
   return (
-    <AppContext.Provider value={{ value }}>
-      <Note />
-      <button
-        onClick={() => {
-          setValue2((pre) => (pre += 1));
-        }}
-      >
-        add
-      </button>
-     s-{aprice}
-    </AppContext.Provider>
+    <>
+      <ModeToggle />
+      <Container>
+        <Number />
+        <CountButton />
+      </Container>
+    </>
   );
 }
+
+const Container = styled.div`
+  width: 600px;
+  height: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+`;
+
 export default App;
