@@ -1,5 +1,6 @@
 import React, { useState, createContext, ReactNode } from "react";
-import { ThemeType } from "../../components/Theme";
+import { ThemeType } from "../components/Theme";
+import { LangType } from "../i18n/i18n";
 
 interface AppContextProps {
   value: number;
@@ -16,7 +17,6 @@ const defaultValue: AppContextProps = {
 };
 
 export const AppContext = createContext<AppContextProps>(defaultValue);
-
 
 export default function AppContextProvider({
   children,

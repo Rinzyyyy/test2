@@ -3,11 +3,13 @@ import Number from "./components/Note";
 import styled from "styled-components";
 import ModeToggle from "./components/ModeToggle";
 import CountButton from "./components/CountButton";
+import LanguageToggle from "./components/LanguageToggle";
 
 function App() {
   return (
     <>
       <ModeToggle />
+      <LanguageToggle />
       <Container>
         <Number />
         <CountButton />

@@ -3,7 +3,7 @@ import {
   createGlobalStyle,
   ThemeProvider as StyledThemeProvider,
 } from "styled-components";
-import { AppContext } from "../../hooks/context/context";
+import { AppContext } from "../../context/context";
 
 export type ThemeType = "Light" | "Dark";
 

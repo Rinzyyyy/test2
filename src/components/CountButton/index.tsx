@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { AppContext } from "../../hooks/context/context";
+import { AppContext } from "../../context/context";
 
 const CountButton = () => {
   const { value, setValue } = useContext(AppContext);
