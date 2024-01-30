@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 
-const Number = () => {
+const TranslateTest = () => {
   const context = useContext(AppContext);
   const { t } = useTranslation();
 
@@ -19,4 +19,4 @@ const Text = styled.div`
   color: red;
 `;
 
-export default Number;
+export default TranslateTest;

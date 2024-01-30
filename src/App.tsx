@@ -1,9 +1,13 @@
 import React from "react";
-import Number from "./components/Note";
 import styled from "styled-components";
+
 import ModeToggle from "./components/ModeToggle";
 import CountButton from "./components/CountButton";
 import LanguageToggle from "./components/LanguageToggle";
+
+import PromiseTest from "./components/promiseTest";
+import TranslateTest from "./components/TranslateTest";
+import ApiTest from "./components/ApiTest";
 
 function App() {
   return (
@@ -11,8 +15,10 @@ function App() {
       <ModeToggle />
       <LanguageToggle />
       <Container>
-        <Number />
+        <ApiTest />
+        <TranslateTest />
         <CountButton />
+        <PromiseTest />
       </Container>
     </>
   );
