@@ -4,10 +4,19 @@ import axios from "axios";
 import { useQuery } from "react-query";
 import { FetchData2, fetchData } from "../api";
 
+type DataType = {
+  id: number;
+  username: string;
+  password: string;
+  token: string;
+};
+
 const ApiTest = () => {
-  const [data, setData] = useState<string | null>(null);
+  const [data, setData] = useState<DataType | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const url = "http://localhost:3000/get";
+
+  const url = "http://localhost:8080/users";
+  const authToken = "token456";
 
   function isError(error: any): error is Error {
     return error instanceof Error;
@@ -16,11 +25,16 @@ const ApiTest = () => {
   // =================== async fetch ==================
   const fetchDataOne = async () => {
     try {
-      const res = await fetch(url);
+      const res = await fetch(url, {
+        method: "GET",
+        headers: { Authorization: `Bearer ${authToken}` },
+      });
       if (!res.ok) {
-        throw new Error(`HTTP error! Status: ${res.status}`);
+        return res.json().then((e) => {
+          setError(e.message || "Server error");
+        });
       }
-      const result = await res.text();
+      const result = await res.json();
       setData(result);
     } catch (e) {
       setError(isError(e) ? e.message : "An unknown error occurred");
@@ -44,7 +58,9 @@ const ApiTest = () => {
     // fetch(url)
     //   .then((res) => {
     //     if (!res.ok) {
-    //       throw new Error(`HTTP error! Status: ${res.status}`);
+    //       return res.json().then((errorData) => {
+    //   setError(errorData.message || "Server error");
+    // });
     //     }
     //     return res.text();
     //   })
@@ -65,7 +81,7 @@ const ApiTest = () => {
   return (
     <div>
       {/* <p> ApiTest: {isLoading ? "loading" : resData}</p> */}
-      <p> ApiTest: {error ?? data}</p>
+      <p> ApiTest: {error ?? data?.username}</p>
     </div>
   );
 };
