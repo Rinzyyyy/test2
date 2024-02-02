@@ -2,7 +2,7 @@ import { use } from "i18next";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useQuery } from "react-query";
-import { FetchData2, fetchData } from "../api";
+import { FetchData2, GetTodoData, PostTodoData, fetchData } from "../api";
 
 type DataType = {
   id: number;
@@ -76,12 +76,39 @@ const ApiTest = () => {
   //   isError: e,
   // } = useQuery("myData", fetchData);
 
-  // const { data: data2 } = FetchData2();
+  const { data: data2, isLoading: todoLoading } = GetTodoData();
+
+  const { mutate } = PostTodoData();
+
+  const handleAddTodo = () => {
+    mutate([{ id: 3, title: "Go to zoo", completed: true }]);
+  };
 
   return (
     <div>
       {/* <p> ApiTest: {isLoading ? "loading" : resData}</p> */}
       <p> ApiTest: {error ?? data?.username}</p>
+
+      {todoLoading ? (
+        "todoLoading"
+      ) : data2?.length ? (
+        data2.map((data) => {
+          return (
+            <ul key={data.id}>
+              <li>{data.title}</li>
+            </ul>
+          );
+        })
+      ) : (
+        <></>
+      )}
+
+      <button
+        onClick={handleAddTodo}
+        className="ml-[100px] touch-pan-x hover:bg-sky-700"
+      >
+        +
+      </button>
     </div>
   );
 };

@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+button {
+  border: 1px solid gray;
+  padding: 0.2rem 1rem;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}

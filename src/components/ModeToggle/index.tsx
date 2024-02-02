@@ -18,10 +18,9 @@ const ModeToggle = () => {
   );
 };
 
-const Button = styled.button`
+export const Button = styled.button`
   margin: 20px;
   width: max-content;
-  height: 20px;
 `;
 
 export default ModeToggle;

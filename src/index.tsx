@@ -6,6 +6,7 @@ import { ThemeProvider } from "./components/Theme";
 import AppContextProvider from "./context/context";
 import "./i18n/i18n";
 import { QueryClient, QueryClientProvider } from "react-query";
+import "./index.css";
 
 const queryClient = new QueryClient({
   defaultOptions: {
