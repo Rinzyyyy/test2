@@ -81,7 +81,7 @@ const ApiTest = () => {
   const { mutate } = PostTodoData();
 
   const handleAddTodo = () => {
-    mutate([{ id: 3, title: "Go to zoo", completed: true }]);
+    mutate({ title: "Go to zoo", completed: true });
   };
 
   return (
@@ -91,8 +91,9 @@ const ApiTest = () => {
 
       {todoLoading ? (
         "todoLoading"
-      ) : data2?.length ? (
-        data2.map((data) => {
+      ) : data2 && data2[0].todo?.length ? (
+        data2[0].todo.map((data) => {
+          if (data.id) return;
           return (
             <ul key={data.id}>
               <li>{data.title}</li>

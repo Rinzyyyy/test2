@@ -38,13 +38,17 @@ export const FetchData2 = () => {
 };
 
 export type TodoDataType = {
-  id: number;
+  id?: number;
   title: string;
   completed: boolean;
 };
 
 type resTodoData = {
-  data: TodoDataType[];
+  data: {
+    id: string;
+    name: string;
+    todo: TodoDataType[];
+  }[];
 };
 
 export const GetTodoData = () => {
@@ -62,7 +66,7 @@ export const PostTodoData = () => {
   const queryClient = useQueryClient();
   return useMutation(
     "postTodoData",
-    async (data: TodoDataType[]) => {
+    async (data: TodoDataType) => {
       await axios.patch("http://localhost:8080/todo", data);
     },
     {
