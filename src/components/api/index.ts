@@ -1,7 +1,8 @@
-import axios, { AxiosError } from "axios";
+import axios, { AxiosError, AxiosRequestConfig } from "axios";
 import { isError, useMutation, useQuery, useQueryClient } from "react-query";
 
-const url = "http://localhost:8080/users";
+const userUrl = "http://localhost:8080/users";
+const todoUrl = "http://localhost:8080/todo";
 
 const handelError = (e: any) => {
   if (axios.isAxiosError(e)) {
@@ -19,7 +20,7 @@ const handelError = (e: any) => {
 
 export const fetchData = async () => {
   try {
-    const response = await axios.get("http://localhost:8080/users");
+    const response = await axios.get(userUrl);
     return response.data;
   } catch (e) {
     handelError(e);
@@ -29,7 +30,7 @@ export const fetchData = async () => {
 export const FetchData2 = () => {
   return useQuery("getData", async () => {
     try {
-      const response = await axios.get("http://localhost:8080/users");
+      const response = await axios.get(userUrl);
       return response.data;
     } catch (e) {
       handelError(e);
@@ -38,14 +39,14 @@ export const FetchData2 = () => {
 };
 
 export type TodoDataType = {
-  id?: number;
+  _id?: number;
   title: string;
   completed: boolean;
 };
 
 type resTodoData = {
   data: {
-    id: string;
+    _id: string;
     name: string;
     todo: TodoDataType[];
   }[];
@@ -54,7 +55,7 @@ type resTodoData = {
 export const GetTodoData = () => {
   return useQuery("getTodoData", async () => {
     try {
-      const res = await axios.get<resTodoData>("http://localhost:8080/todo");
+      const res = await axios.get<resTodoData>(todoUrl);
       return res.data.data;
     } catch (e) {
       handelError(e);
@@ -67,7 +68,20 @@ export const PostTodoData = () => {
   return useMutation(
     "postTodoData",
     async (data: TodoDataType) => {
-      await axios.patch("http://localhost:8080/todo", data);
+      await axios.patch(todoUrl, data);
+    },
+    {
+      onSuccess: () => queryClient.invalidateQueries(["getTodoData"]),
+      onError: (e) => handelError(e),
+    }
+  );
+};
+
+export const DeleteTodoData = () => {
+  const queryClient = useQueryClient();
+  return useMutation(
+    async (data: { id: number }) => {
+      await axios.delete(todoUrl, { params: data });
     },
     {
       onSuccess: () => queryClient.invalidateQueries(["getTodoData"]),
